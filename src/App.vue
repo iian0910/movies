@@ -6,12 +6,23 @@
 </template>
 
 <script>
+import { getTMDBList } from '@/assets/js/api';
 import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
   components: {
     HelloWorld
+  },
+  mounted(){
+    this.init ()
+  },
+  methods: {
+    init () {
+      getTMDBList.then(res => {
+        console.log(res.data.results)
+      })
+    }
   }
 }
 </script>
