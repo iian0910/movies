@@ -21,6 +21,13 @@
                         </div>
                     </div>
                 </div>
+                <PaginationSelector
+                    class="my-5"
+                    :totalPages="this.moviesData.total_pages"
+                    @jumpToPage="changePage"
+                    @goPre="changePage"
+                    @goNext="changePage"
+                />
             </div>
         </div>
         
@@ -28,11 +35,16 @@
 </template>
 
 <script>
-import { getTMDBList, filterTMDBList } from '@/assets/js/api';
+import { getTMDBList, filterTMDBList, changeTMDBList } from '@/assets/js/api';
+import PaginationSelector from './PaginationSelector.vue';
 
 export default {
+    components: {
+        PaginationSelector
+    },
     data() {
         return {
+            moviesData: [],
             moviesList: [],
             search: {
                 year: ''
@@ -45,10 +57,8 @@ export default {
     computed: {},
     methods: {
         init () {
-            const data = {
-                year: new Date().getFullYear()
-            }
-            getTMDBList(data).then((res) => {
+            getTMDBList().then((res) => {
+                this.moviesData = res.data
                 this.moviesList = res.data.results
             })
         },
@@ -57,6 +67,15 @@ export default {
                 year: this.search.year
             }
             filterTMDBList(data).then((res) => {
+                this.moviesList = res.data.results
+            })
+        },
+        changePage (page) {
+            const data = {
+                year: this.search.year,
+                page: page
+            }
+            changeTMDBList(data).then((res) => {
                 this.moviesList = res.data.results
             })
         }
