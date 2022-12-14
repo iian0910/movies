@@ -2,8 +2,13 @@ import Vue from 'vue'
 import App from './App.vue'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import LoadingPlugin from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css'
 
 Vue.config.productionTip = false
+
+// 全域元件
+Vue.component('LoadingPlugin', LoadingPlugin)
 
 // 全域 Filter
 Vue.filter('date', function(date) {
