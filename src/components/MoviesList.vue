@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col-3">
+            <div class="col-md-3 col-12 mb-5 mb-md-0">
                 <div class="filter_contrl mb-3">
                     <div class="title">搜尋年度</div>
                     <input type="text" class="form-control" v-model="search.year" placeholder="搜尋年度" aria-label="搜尋年度" aria-describedby="搜尋年度">
@@ -23,9 +23,9 @@
                     <button type="button" class="btn btn-info" @click="searchList()">搜尋</button>
                 </div>
             </div>
-            <div class="col-9">
+            <div class="col-md-9 col-12">
                 <div class="row">
-                    <div class="col-4 mb-3" v-for="(item, index) in moviesList" :key="index">
+                    <div class="col-md-4 col-12 mb-3" v-for="(item, index) in moviesList" :key="index">
                         <div class="card h-100">
                             <img :src="'https://image.tmdb.org/t/p/w500' + item.backdrop_path" class="card-img-top" alt="demo_img">
                             <div class="card-body">
