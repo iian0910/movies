@@ -18,7 +18,15 @@
             <div class="col-md-3 col-12 mb-5 mb-md-0">
                 <div class="filter_contrl mb-3">
                     <div class="title">搜尋年度</div>
-                    <input type="text" class="form-control" v-model="search.year" placeholder="搜尋年度" aria-label="搜尋年度" aria-describedby="搜尋年度">
+                    <input
+                        type="text"
+                        class="form-control"
+                        v-model="search.year"
+                        inputmode="numeric"
+                        placeholder="搜尋年度"
+                        aria-label="搜尋年度"
+                        aria-describedby="搜尋年度"
+                    >
                 </div>
                 <div class="filter_contrl mb-5">
                     <div class="title">排序方式</div>
@@ -34,7 +42,17 @@
                     </select>
                 </div>
                 <div class="filter_btn">
-                    <button type="button" class="btn btn-info" @click="searchList()">搜尋</button>
+                    <button
+                        type="button"
+                        class="btn btn-info"
+                        style="margin-right: 5px"
+                        @click="searchList()"
+                    >搜尋</button>
+                    <button
+                        type="button"
+                        class="btn btn-danger"
+                        @click="cleanFilter()"
+                    >清空</button>
                 </div>
             </div>
             <div class="col-md-9 col-12">
@@ -113,6 +131,20 @@ export default {
             const data = {
                 year: this.search.year,
                 page: page,
+                sort: this.search.sortBy
+            }
+            this.isLoading = true
+            changeTMDBList(data).then((res) => {
+                this.isLoading = false
+                this.moviesList = res.data.results
+            })
+        },
+        cleanFilter () {
+            this.search.year = ''
+            this.search.sortBy = ''
+            const data = {
+                year: this.search.year,
+                page: 1,
                 sort: this.search.sortBy
             }
             this.isLoading = true
