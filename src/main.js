@@ -13,7 +13,7 @@ Vue.filter('date', function(date) {
 
 Vue.filter('language', function(code) {
   const mapping = {
-    'ar-XA': '阿拉伯文',
+    'ar': '阿拉伯文',
     'hr': '克羅埃西亞文',
     'da': '丹麥文',
     'el': '希臘文',
@@ -30,7 +30,6 @@ Vue.filter('language', function(code) {
     'sr-CS': '塞爾維亞文',
     'sl': '斯洛維尼亞文',
     'tr': '土耳其文',
-    'zh-chs': '簡體中文',
     'bg': '保加利亞文',
     'cs': '捷克文',
     'de': '德文',
@@ -48,7 +47,8 @@ Vue.filter('language', function(code) {
     'sk': '斯洛伐克文',
     'th': '泰文',
     'uk-UA': '烏克蘭文',
-    'zh-cht': '繁體中文',
+    'zh': '中文',
+    'fa': '波斯語',
   }
 
   let language = ''

@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col-md-4 col-12 mb-3" v-for="(item, index) in moviesList" :key="index">
                         <div class="card h-100">
-                            <img :src="'https://image.tmdb.org/t/p/w500' + item.backdrop_path" class="card-img-top" alt="demo_img">
+                            <img :src="[item.backdrop_path ? 'https://image.tmdb.org/t/p/w500' + item.backdrop_path : emptyPic]" class="card-img-top" alt="demo_img">
                             <div class="card-body">
                                 <div class="card-title">{{item.original_title}}</div>
                                 <div class="release_date mb-1">上映日期：{{item.release_date | date}}</div>
@@ -53,6 +53,7 @@
 <script>
 import { getTMDBList, filterTMDBList, changeTMDBList } from '@/assets/js/api';
 import PaginationSelector from './PaginationSelector.vue';
+import noMoviePic from '@/assets/image/no_movie_pic.jpg';
 
 export default {
     components: {
@@ -65,7 +66,8 @@ export default {
             search: {
                 year: '',
                 sortBy: ''
-            }
+            },
+            emptyPic: noMoviePic
         }
     },
     mounted(){
