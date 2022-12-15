@@ -25,9 +25,14 @@ export default {
             default: false
         }
     },
-    computed: {
-        isLoading () {
-            return this.Loading
+    data() {
+      return {
+        isLoading: false
+      }
+    },
+    watch: {
+        Loading (newVal) {
+            this.isLoading = newVal
         }
     }
 }
