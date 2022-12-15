@@ -46,9 +46,9 @@
             </div>
             <div class="col-md-9 col-12">
                 <div class="row">
-                    <div class="col-md-4 col-12 mb-3" v-for="(item, index) in moviesList" :key="index">
+                    <div class="col-md-3 col-12 mb-3" v-for="(item, index) in moviesList" :key="index">
                         <div class="card h-100">
-                            <img :src="[item.backdrop_path ? 'https://image.tmdb.org/t/p/w500' + item.backdrop_path : emptyPic]" class="card-img-top" alt="demo_img">
+                            <img :src="[item.backdrop_path ? 'https://image.tmdb.org/t/p/w500' + item.poster_path : emptyPic]" class="card-img-top" alt="demo_img">
                             <div class="card-body">
                                 <div class="card-title">{{item.original_title}}</div>
                                 <div class="release_date mb-1">上映日期：{{item.release_date | date}}</div>
@@ -151,9 +151,9 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/style/main.scss';
 .card-title {
-    font-size: 22px;
+    font-size: 18px;
     line-height: 1.5;
-    font-weight: 500;
+    font-weight: 700;
     color: #333;
 }
 .release_date,
