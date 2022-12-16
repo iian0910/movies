@@ -123,9 +123,9 @@ export default {
         init () {
             this.isLoading = true
             getTMDBList().then((res) => {
-                this.isLoading = false
                 this.moviesData = res.data
                 this.moviesList = res.data.results
+                this.isLoading = false
             })
         },
         searchList () {
@@ -135,8 +135,8 @@ export default {
             }
             this.isLoading = true
             filterTMDBList(data).then((res) => {
-                this.isLoading = false
                 this.moviesList = res.data.results
+                this.isLoading = false
             })
         },
         changePage (page) {
@@ -147,8 +147,8 @@ export default {
             }
             this.isLoading = true
             changeTMDBList(data).then((res) => {
-                this.isLoading = false
                 this.moviesList = res.data.results
+                this.isLoading = false
             })
         },
         cleanFilter () {
@@ -161,8 +161,8 @@ export default {
             }
             this.isLoading = true
             changeTMDBList(data).then((res) => {
-                this.isLoading = false
                 this.moviesList = res.data.results
+                this.isLoading = false
             })
         },
         openDetail (detail) {
@@ -170,11 +170,10 @@ export default {
             let imgPath = detail.backdrop_path ? 'https://image.tmdb.org/t/p/w500' + detail.backdrop_path : this.emptyPic2
 
             myModal.addEventListener('shown.bs.modal', function () {
-                console.log('Get Detail ===>', detail)
-                document.getElementById('movie_title').textContent = detail.title
+                document.getElementById('movie_title').textContent = detail.original_title
                 document.getElementById('movies_desc').textContent = detail.overview
                 document.getElementById('movies_poster').setAttribute('src', imgPath)
-                document.getElementById('movies_poster').setAttribute('alt', detail.title)
+                document.getElementById('movies_poster').setAttribute('alt', detail.original_title)
                 document.getElementById('movies_vote_average').textContent = `平均票數：${detail.vote_average}`
             })
         }
