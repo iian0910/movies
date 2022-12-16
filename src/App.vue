@@ -1,16 +1,14 @@
 <template>
   <div>
-    <AnnualMovies/>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import AnnualMovies from './views/AnnualMovies.vue'
 
 export default {
   name: 'App',
   components: {
-    AnnualMovies
   }
 }
 </script>

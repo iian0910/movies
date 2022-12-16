@@ -1,5 +1,5 @@
 // const { defineConfig } = require('@vue/cli-service')
-// const IN_PRODUCTION = process.env.NODE_ENV === "production";
+const IN_PRODUCTION = process.env.NODE_ENV === "production";
 
 // module.exports = defineConfig({
 //   publicPath: IN_PRODUCTION ? '/movies/' : '/',
@@ -7,6 +7,6 @@
 // })
 
 module.exports = {
-  publicPath: '/movies/'
+  publicPath: IN_PRODUCTION ? '/movies' : '/',
 }
 

@@ -3,7 +3,8 @@ import App from './App.vue'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import LoadingPlugin from 'vue-loading-overlay';
-import 'vue-loading-overlay/dist/vue-loading.css'
+import 'vue-loading-overlay/dist/vue-loading.css';
+import router from './router.js'
 
 Vue.config.productionTip = false
 
@@ -68,5 +69,6 @@ Vue.filter('language', function(code) {
 })
 
 new Vue({
+  router,
   render: h => h(App),
 }).$mount('#app')
