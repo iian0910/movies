@@ -36,33 +36,31 @@
                         <div class="filter_btn">
                             <button
                                 type="button"
-                                class="btn btn-info"
+                                class="btn btn-info search_btn"
                                 style="margin-right: 5px"
                                 @click="searchList()"
                             >搜尋</button>
                             <button
                                 type="button"
-                                class="btn btn-danger"
+                                class="btn btn-danger clean_btn"
                                 @click="cleanFilter()"
                             >清空</button>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-9 col-12">
+                    <h3 class="mb-5">年度影片</h3>
                     <div class="row">
                         <div class="col-md-3 col-12 mb-3" v-for="(item, index) in moviesList" :key="index">
                             <div class="card h-100">
                                 <img :src="[item.poster_path ? 'https://image.tmdb.org/t/p/w500' + item.poster_path : emptyPic1]" class="card-img-top" alt="demo_img">
                                 <div class="card-body">
                                     <div class="card-title">{{item.original_title}}</div>
-                                    <!-- <div class="release_date mb-1">發布日期：{{item.release_date | date}}</div> -->
-                                    <!-- <div class="vote_average">平均票數：{{item.vote_average}}</div> -->
-                                    <!-- <div class="vote_average">電影語系：{{item.original_language | language}}</div> -->
                                 </div>
                                 <div class="card-footer">
                                     <button
                                         type="button"
-                                        class="btn btn-primary"
+                                        class="btn btn-primary more_btn"
                                         data-bs-toggle="modal"
                                         data-bs-target="#moviesModal"
                                         @click="openDetail(item)"
@@ -207,5 +205,30 @@ export default {
     line-height: 1.5;
     font-weight: 400;
     color: #666;
+}
+.search_btn {
+    padding: 5px 20px;
+    color: white;
+}
+.clean_btn {
+    padding: 5px 20px;
+    background-color: transparent;
+    border: 1px solid #dc3545;
+    color: #dc3545;
+}
+.more_btn {
+    padding: 5px 20px;
+    width: 100%;
+    background-color: transparent;
+    border: 1px solid #0d6efd;
+    color: #0d6efd;
+}
+.card {
+    border: none;
+    box-shadow: 0px 0px 15px 5px rgb(0 0 0 / 15%);
+}
+.card-footer {
+    background-color: transparent;
+    border-top: 0;
 }
 </style>

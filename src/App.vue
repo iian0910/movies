@@ -1,16 +1,16 @@
 <template>
   <div>
-    <MoviesList/>
+    <AnnualMovies/>
   </div>
 </template>
 
 <script>
-import MoviesList from './components/MoviesList.vue'
+import AnnualMovies from './components/AnnualMovies.vue'
 
 export default {
   name: 'App',
   components: {
-    MoviesList
+    AnnualMovies
   }
 }
 </script>
