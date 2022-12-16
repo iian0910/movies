@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import AnnualMovies from './components/AnnualMovies.vue'
+import AnnualMovies from './views/AnnualMovies.vue'
 
 export default {
   name: 'App',

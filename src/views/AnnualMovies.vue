@@ -90,9 +90,9 @@
 
 <script>
 import { getTMDBList, filterTMDBList, changeTMDBList } from '@/assets/js/api';
-import PaginationSelector from './PaginationSelector.vue';
-import LoadingActive from './LoadingActive.vue';
-import MoviesModal from './MoviesModal.vue';
+import PaginationSelector from '@/components/PaginationSelector.vue';
+import LoadingActive from '@/components/LoadingActive.vue';
+import MoviesModal from '@/components/MoviesModal.vue';
 import noMoviePic1 from '@/assets/image/no_movie_pic_1.jpg';
 import noMoviePic2 from '@/assets/image/no_movie_pic_2.jpg';
 
