@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // 建立 axios 實體，baseURL 設定為 TMDB 網域位址
 export const TMDBRequest = axios.create({
-    baseURL: 'https://api.themoviedb.org/3'
+    baseURL: process.env.VUE_APP_PATH
 });
 
 // 取得年度清單
