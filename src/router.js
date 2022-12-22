@@ -1,15 +1,15 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import AnnualMovies from '@/views/AnnualMovies.vue';
+import AnnualMovies from './views/AnnualMovies.vue';
 
 Vue.use(VueRouter)
 
 export default new VueRouter({
-    mode: 'history',
+    mode: "hash",
     routes: [
         {
-            name: 'AnnualMovies',
             path: '/',
+            name: 'AnnualMovies',
             component: AnnualMovies
         }
     ]
