@@ -73,7 +73,7 @@
                     </div>
                     <PaginationSelector
                         class="my-5"
-                        :totalPages="this.moviesData.total_pages"
+                        :totalPages="this.moviesData.total_results"
                         @jumpToPage="changePage"
                         @goPre="changePage"
                         @goNext="changePage"
@@ -124,6 +124,7 @@ export default {
             this.isLoading = true
             getTMDBList().then((res) => {
                 this.moviesData = res.data
+                console.log('this.moviesData', this.moviesData)
                 this.moviesList = res.data.results
                 this.isLoading = false
             })
