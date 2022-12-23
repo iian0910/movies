@@ -18,7 +18,7 @@ export async function filterTMDBList(data) {
         year: `${data.year ? `&primary_release_year=${data.year}` : ''}`,
         sort: `${data.sort ? `&sort_by=${data.sort}` : ''}`,
     }
-    console.log(filter)
+    console.log('filter', filter)
     const URL = `${process.env.VUE_APP_DISCOVER_API}&include_adult=false&include_video=true&with_watch_monetization_types=flatrate${filter.year}${filter.sort}`
     return TMDBRequest.get(URL)
 }

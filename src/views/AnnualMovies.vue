@@ -7,46 +7,10 @@
             />
             <div class="row">
                 <div class="col-md-3 col-12 mb-5 mb-md-0">
-                    <div>
-                        <div class="filter_contrl mb-3">
-                            <div class="title">搜尋年度</div>
-                            <input
-                                type="text"
-                                class="form-control"
-                                v-model="search.year"
-                                inputmode="numeric"
-                                placeholder="搜尋年度"
-                                aria-label="搜尋年度"
-                                aria-describedby="搜尋年度"
-                            >
-                        </div>
-                        <div class="filter_contrl mb-5">
-                            <div class="title">排序方式</div>
-                            <select class="form-select" aria-label="排序方式" v-model="search.sortBy">
-                                <option value="popularity.desc">【預設】熱門度(高到低)</option>
-                                <option value="popularity.asc">熱門度(低到高)</option>
-                                <option value="release_date.desc">上映日(近到遠)</option>
-                                <option value="release_date.asc">上映日(近到遠)</option>
-                                <option value="vote_average.desc">平均票數(高到低)</option>
-                                <option value="vote_average.asc">平均票數(低到高)</option>
-                                <option value="vote_count.desc">總票數(高到低)</option>
-                                <option value="vote_count.asc">總票數(低到高)</option>
-                            </select>
-                        </div>
-                        <div class="filter_btn">
-                            <button
-                                type="button"
-                                class="btn btn-info search_btn"
-                                style="margin-right: 5px"
-                                @click="searchList()"
-                            >搜尋</button>
-                            <button
-                                type="button"
-                                class="btn btn-danger clean_btn"
-                                @click="cleanFilter()"
-                            >清空</button>
-                        </div>
-                    </div>
+                    <AnnualFilter
+                        @searchList="searchList"
+                        @cleanFilter="cleanFilter"
+                    />
                 </div>
                 <div class="col-md-9 col-12">
                     <h3 class="mb-5">年度影片</h3>
@@ -93,6 +57,7 @@ import { getTMDBList, filterTMDBList, changeTMDBList, getMovieImages } from '@/a
 import PaginationSelector from '@/components/PaginationSelector.vue';
 import LoadingActive from '@/components/LoadingActive.vue';
 import MoviesModal from '@/components/MoviesModal.vue';
+import AnnualFilter from '@/components/AnnualFilter.vue';
 import noMoviePic1 from '@/assets/image/no_movie_pic_1.jpg';
 import noMoviePic2 from '@/assets/image/no_movie_pic_2.jpg';
 
@@ -100,16 +65,13 @@ export default {
     components: {
         PaginationSelector,
         LoadingActive,
-        MoviesModal
+        MoviesModal,
+        AnnualFilter
     },
     data() {
         return {
             moviesData: [],
             moviesList: [],
-            search: {
-                year: '',
-                sortBy: ''
-            },
             emptyPic1: noMoviePic1,
             emptyPic2: noMoviePic2,
             isLoading: false
@@ -124,15 +86,14 @@ export default {
             this.isLoading = true
             getTMDBList().then((res) => {
                 this.moviesData = res.data
-                console.log('this.moviesData', this.moviesData)
                 this.moviesList = res.data.results
                 this.isLoading = false
             })
         },
-        searchList () {
+        searchList (filterItem) {
             const data = {
-                year: this.search.year,
-                sort: this.search.sortBy
+                year: filterItem.year,
+                sort: filterItem.sort
             }
             this.isLoading = true
             filterTMDBList(data).then((res) => {
@@ -152,14 +113,7 @@ export default {
                 this.isLoading = false
             })
         },
-        cleanFilter () {
-            this.search.year = ''
-            this.search.sortBy = ''
-            const data = {
-                year: this.search.year,
-                page: 1,
-                sort: this.search.sortBy
-            }
+        cleanFilter (data) {
             this.isLoading = true
             changeTMDBList(data).then((res) => {
                 this.moviesList = res.data.results
@@ -175,7 +129,6 @@ export default {
             }
             getMovieImages(data).then((res) => {
                 const result = res.data.backdrops
-                // imgPath.push(res.data.backdrops[index].file_path ? 'https://image.tmdb.org/t/p/original/' + res.data.backdrops[index].file_path : this.emptyPic2)
                 result.forEach((path) => {
                     path.file_path ? imgPath.push('https://image.tmdb.org/t/p/original' + path.file_path) : imgPath.push(this.emptyPic2)
                 });
