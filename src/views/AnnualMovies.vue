@@ -89,7 +89,7 @@
 </template>
 
 <script>
-import { getTMDBList, filterTMDBList, changeTMDBList } from '@/assets/js/api';
+import { getTMDBList, filterTMDBList, changeTMDBList, getMovieImages } from '@/assets/js/api';
 import PaginationSelector from '@/components/PaginationSelector.vue';
 import LoadingActive from '@/components/LoadingActive.vue';
 import MoviesModal from '@/components/MoviesModal.vue';
@@ -168,14 +168,28 @@ export default {
         },
         openDetail (detail) {
             let myModal = document.getElementById('moviesModal')
-            let imgPath = detail.backdrop_path ? 'https://image.tmdb.org/t/p/w500' + detail.backdrop_path : this.emptyPic2
+            let imgPath = []
+            let sliceArr = []
+            const data = {
+                id: detail.id
+            }
+            getMovieImages(data).then((res) => {
+                const result = res.data.backdrops
+                // imgPath.push(res.data.backdrops[index].file_path ? 'https://image.tmdb.org/t/p/original/' + res.data.backdrops[index].file_path : this.emptyPic2)
+                result.forEach((path) => {
+                    path.file_path ? imgPath.push('https://image.tmdb.org/t/p/original' + path.file_path) : imgPath.push(this.emptyPic2)
+                });
+                sliceArr = imgPath.slice(0,2)
+            })
 
             myModal.addEventListener('shown.bs.modal', function () {
                 document.getElementById('movie_title').textContent = detail.original_title
                 document.getElementById('movies_desc').textContent = detail.overview
-                document.getElementById('movies_poster').setAttribute('src', imgPath)
-                document.getElementById('movies_poster').setAttribute('alt', detail.original_title)
                 document.getElementById('movies_vote_average').textContent = `平均票數：${detail.vote_average}`
+                sliceArr.forEach((item, index) => {
+                    document.getElementById(`movies_poster_${index}`).setAttribute('src', item)
+                    document.getElementById(`movies_poster_${index}`).setAttribute('alt', detail.original_title)
+                })
             })
         }
     }

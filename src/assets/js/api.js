@@ -33,3 +33,9 @@ export async function changeTMDBList(data) {
     const URL = `${process.env.VUE_APP_DISCOVER_API}&include_adult=false&include_video=true&with_watch_monetization_types=flatrate${filter.sort}${filter.year}${filter.page}`
     return TMDBRequest.get(URL)
 }
+
+// 切換頁面
+export async function getMovieImages(data) {
+    const URL = `/movie/${data.id}/images?api_key=${process.env.VUE_APP_API_KEY}`
+    return TMDBRequest.get(URL)
+}
