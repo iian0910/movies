@@ -6,14 +6,33 @@
                 :Loading="isLoading"
             />
             <div class="row">
-                <div class="col-md-3 col-12 mb-5 mb-md-0">
+                <div class="col-md-3 mb-5 mb-md-0 desktop-divice">
                     <AnnualFilter
                         @searchList="searchList"
                         @cleanFilter="cleanFilter"
                     />
                 </div>
+                <div class="col-md-3 mb-5 mb-md-0 mobile-divice">
+                    <div class="accordion" id="annualMoviesFilter">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    年度好片條件篩選
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#annualMoviesFilter">
+                                <div class="accordion-body">
+                                    <AnnualFilter
+                                        @searchList="searchList"
+                                        @cleanFilter="cleanFilter"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-md-9 col-12">
-                    <h3 class="mb-5">年度影片</h3>
+                    <h3 class="mb-3">年度影片</h3>
                     <div class="row">
                         <div class="col-md-3 col-12 mb-3" v-for="(item, index) in moviesList" :key="index">
                             <div class="card h-100">
