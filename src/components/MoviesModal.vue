@@ -10,7 +10,7 @@
                 <div class="modal-body">
                     <div id="carouselExampleControls" class="carousel slide mb-5" data-bs-ride="carousel">
                         <div class="carousel-inner">
-                            <div class="carousel-item active" v-for="(item, index) in 2" :key="index">
+                            <div class="carousel-item" :class="{'active' : index === 0}" v-for="(item, index) in 2" :key="index">
                                 <img :id="`movies_poster_${index}`" class="w-100" src="" alt="">
                             </div>
                         </div>
