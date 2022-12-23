@@ -91,6 +91,10 @@ export default {
         return {
             moviesData: [],
             moviesList: [],
+            search: {
+                year: '',
+                sortBy: ''
+            },
             emptyPic1: noMoviePic1,
             emptyPic2: noMoviePic2,
             isLoading: false
@@ -110,6 +114,9 @@ export default {
             })
         },
         searchList (filterItem) {
+            this.search.year = filterItem.year
+            this.search.sortBy = filterItem.sort
+
             const data = {
                 year: filterItem.year,
                 sort: filterItem.sort
@@ -121,10 +128,11 @@ export default {
             })
         },
         changePage (page) {
+            console.log(page)
             const data = {
-                year: this.search.year,
+                year: this.search.year ? this.search.year : new Date().getFullYear(),
                 page: page,
-                sort: this.search.sortBy
+                sort: this.search.sortBy ? this.search.sortBy : ''
             }
             this.isLoading = true
             changeTMDBList(data).then((res) => {
