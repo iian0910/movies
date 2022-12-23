@@ -16,10 +16,11 @@ export async function getTMDBList() {
 export async function filterTMDBList(data) {
     const filter = {
         year: `${data.year ? `&primary_release_year=${data.year}` : ''}`,
+        page: `&page=${data.page}`,
         sort: `${data.sort ? `&sort_by=${data.sort}` : ''}`,
     }
     console.log('filter', filter)
-    const URL = `${process.env.VUE_APP_DISCOVER_API}&include_adult=false&include_video=true&with_watch_monetization_types=flatrate${filter.year}${filter.sort}`
+    const URL = `${process.env.VUE_APP_DISCOVER_API}&include_adult=false&include_video=true&with_watch_monetization_types=flatrate${filter.year}${filter.sort}${filter.page}`
     return TMDBRequest.get(URL)
 }
 

@@ -57,6 +57,8 @@
                     <PaginationSelector
                         class="my-5"
                         :totalPages="this.moviesData.total_results"
+                        :currentPage="currentPage"
+                        @change="changePage"
                         @jumpToPage="changePage"
                         @goPre="changePage"
                         @goNext="changePage"
@@ -95,6 +97,7 @@ export default {
                 year: '',
                 sortBy: ''
             },
+            currentPage: 0,
             emptyPic1: noMoviePic1,
             emptyPic2: noMoviePic2,
             isLoading: false
@@ -116,19 +119,22 @@ export default {
         searchList (filterItem) {
             this.search.year = filterItem.year
             this.search.sortBy = filterItem.sort
-
+            this.search.page = filterItem.page
+            
             const data = {
                 year: filterItem.year,
+                page: filterItem.page,
                 sort: filterItem.sort
             }
+            this.currentPage = data.page
             this.isLoading = true
             filterTMDBList(data).then((res) => {
                 this.moviesList = res.data.results
                 this.isLoading = false
             })
+            
         },
         changePage (page) {
-            console.log(page)
             const data = {
                 year: this.search.year ? this.search.year : new Date().getFullYear(),
                 page: page,
@@ -142,6 +148,7 @@ export default {
         },
         cleanFilter (data) {
             this.isLoading = true
+            this.currentPage = data.page
             changeTMDBList(data).then((res) => {
                 this.moviesList = res.data.results
                 this.isLoading = false

@@ -17,6 +17,10 @@ export default {
         totalPages: {
             default: 0,
             type: Number
+        },
+        currentPage: {
+            default: 1,
+            type: Number
         }
     },
     data () {
@@ -41,6 +45,9 @@ export default {
             if (val) {
                 this.getPagesLength()
             }
+        },
+        currentPage () {
+            this.current = this.currentPage
         },
         current (val) { // 监听当前页current改变，向父组件传递参数当前页
             this.$emit('change', val)

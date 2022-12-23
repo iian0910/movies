@@ -55,9 +55,9 @@ export default {
         searchList() {
             const data = {
                 year: this.search.year ? this.search.year : new Date().getFullYear(),
+                page: 1,
                 sort: this.search.sortBy ? this.search.sortBy : ''
             }
-            console.log('searchList ===>', data)
             this.$emit('searchList', data)
         },
         cleanFilter() {
