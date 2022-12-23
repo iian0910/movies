@@ -8,7 +8,7 @@ export const TMDBRequest = axios.create({
 // 取得年度清單
 export async function getTMDBList() {
     const initYear = new Date().getFullYear()
-    const URL = `/discover/movie?api_key=23efab36e26c5f7cfd28a1b288c6b6bc&region=tw&sort_by=popularity.desc&include_adult=false&include_video=true&primary_release_year=${initYear}&with_watch_monetization_types=flatrate`
+    const URL = `${process.env.VUE_APP_DISCOVER_API}&sort_by=popularity.desc&include_adult=false&include_video=true&primary_release_year=${initYear}&with_watch_monetization_types=flatrate`
     return TMDBRequest.get(URL)
 }
 
@@ -19,7 +19,7 @@ export async function filterTMDBList(data) {
         sort: `${data.sort ? `&sort_by=${data.sort}` : ''}`,
     }
     console.log(filter)
-    const URL = `/discover/movie?api_key=23efab36e26c5f7cfd28a1b288c6b6bc&region=tw&include_adult=false&include_video=true&with_watch_monetization_types=flatrate${filter.year}${filter.sort}`
+    const URL = `${process.env.VUE_APP_DISCOVER_API}&include_adult=false&include_video=true&with_watch_monetization_types=flatrate${filter.year}${filter.sort}`
     return TMDBRequest.get(URL)
 }
 
@@ -30,6 +30,6 @@ export async function changeTMDBList(data) {
         sort: `${data.sort ? `&sort_by=${data.sort}` : ''}`,
         page: `&page=${data.page}`
     }
-    const URL = `/discover/movie?api_key=23efab36e26c5f7cfd28a1b288c6b6bc&region=tw&include_adult=false&include_video=true&with_watch_monetization_types=flatrate${filter.sort}${filter.year}${filter.page}`
+    const URL = `${process.env.VUE_APP_DISCOVER_API}&include_adult=false&include_video=true&with_watch_monetization_types=flatrate${filter.sort}${filter.year}${filter.page}`
     return TMDBRequest.get(URL)
 }
