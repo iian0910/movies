@@ -56,7 +56,7 @@
                     </div>
                     <PaginationSelector
                         class="my-5"
-                        :totalPages="moviesData.total_results"
+                        :totalPages="totalResult"
                         :isResetPagination="isResetPagination"
                         @change="changePage"
                         @jumpToPage="changePage"
@@ -113,6 +113,7 @@ export default {
             getTMDBList().then((res) => {
                 this.moviesData = res.data
                 this.moviesList = res.data.results
+                this.totalResult = res.data.total_results
                 this.isLoading = false
             })
         },
@@ -131,6 +132,7 @@ export default {
             
             filterTMDBList(data).then((res) => {
                 this.moviesList = res.data.results
+                this.totalResult = res.data.total_results
                 this.isLoading = false
                 this.isResetPagination = false
             })
@@ -144,6 +146,7 @@ export default {
             this.isLoading = true
             changeTMDBList(data).then((res) => {
                 this.moviesList = res.data.results
+                this.totalResult = res.data.total_results
                 this.isLoading = false
             })
         },
@@ -155,6 +158,7 @@ export default {
             getTMDBList().then((res) => {
                 this.moviesData = res.data
                 this.moviesList = res.data.results
+                this.totalResult = res.data.total_results
                 this.isLoading = false
                 this.isResetPagination = false
             })

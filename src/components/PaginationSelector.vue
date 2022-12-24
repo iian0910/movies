@@ -26,7 +26,7 @@ export default {
     data () {
         return {
             current: 1,
-            pageSize: 10,
+            pageSize: 20,
             pages: [],
             pageLength: 0
         }
@@ -62,7 +62,7 @@ export default {
             const more = this.totalPages % this.pageSize ? 1 : 0
             this.pageLength = this.totalPages / this.pageSize + more
             this.pages = new Array(Math.floor(this.pageLength))
-            for (let i = 0; i < this.pageLength; i++) {
+            for (let i = 0; i < this.pages.length; i++) {
                 this.pages[i] = i + 1
             }
         },
