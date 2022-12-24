@@ -97,6 +97,7 @@ export default {
                 year: '',
                 sortBy: ''
             },
+            totalResult: 0,
             emptyPic1: noMoviePic1,
             emptyPic2: noMoviePic2,
             isLoading: false,
@@ -170,8 +171,10 @@ export default {
             const data = {
                 id: detail.id
             }
+
             getMovieImages(data).then((res) => {
                 const result = res.data.backdrops
+                console.log('result ===>', result)
                 result.forEach((path) => {
                     path.file_path ? imgPath.push('https://image.tmdb.org/t/p/original' + path.file_path) : imgPath.push(this.emptyPic2)
                 });
