@@ -1,6 +1,45 @@
 <template>
     <div>
-        <div class="header_bar bar mb-5"></div>
+        <div class="container-fluid mb-5 px-0">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button
+                        type="button"
+                        v-for="(item, index) in BDList"
+                        :key="index"
+                        data-bs-target="#carouselExampleIndicators"
+                        :data-bs-slide-to="index"
+                        :class="index === 0 ? 'active' : ''"
+                        aria-current="true">
+                    </button>
+                </div>
+                <div class="carousel-inner">
+                    <div
+                        v-for="(item, index) in BDList"
+                        :key="index"
+                        class="carousel-item"
+                        :class="index === 0 ? 'active' : ''"
+                    >
+                        <div :style="{
+                                backgroundImage: 'url(https://image.tmdb.org/t/p/original' + item.backdrop_path + ')',
+                                backgroundSize: 'cover',
+                                backgroundPositon: 'center',
+                                paddingBottom: '800px'
+                             }"
+                            class="d-block w-100"></div>
+                        <!-- <img :src="'https://image.tmdb.org/t/p/original' + item.backdrop_path" class="d-block w-100" alt="..."> -->
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
         <div class="container">
             <LoadingActive
                 :Loading="isLoading"
@@ -75,7 +114,7 @@
 </template>
 
 <script>
-import { getTMDBList, filterTMDBList, changeTMDBList, getMovieImages } from '@/assets/js/api';
+import { getTMDBList, filterTMDBList, changeTMDBList, getMovieImages, getPopularMovies } from '@/assets/js/api';
 import PaginationSelector from '@/components/PaginationSelector.vue';
 import LoadingActive from '@/components/LoadingActive.vue';
 import MoviesModal from '@/components/MoviesModal.vue';
@@ -94,6 +133,7 @@ export default {
         return {
             moviesData: [],
             moviesList: [],
+            BDList: [],
             search: {
                 year: '',
                 sortBy: ''
@@ -117,6 +157,9 @@ export default {
                 this.moviesList = res.data.results
                 this.totalResult = res.data.total_results
                 this.isLoading = false
+            })
+            getPopularMovies().then(res => {
+                this.BDList = res.data.results.slice(0,5)
             })
         },
         searchList (filterItem) {
@@ -206,9 +249,6 @@ export default {
 @import '@/assets/style/main.scss';
 .bar {
     background: rgb(16, 92, 163);
-}
-.header_bar {
-    height: 10px;
 }
 .footer_bar {
     height: 120px;

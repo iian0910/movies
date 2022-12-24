@@ -40,3 +40,9 @@ export async function getMovieImages(data) {
     const URL = `/movie/${data.id}/images?api_key=${process.env.VUE_APP_API_KEY}`
     return TMDBRequest.get(URL)
 }
+
+// 熱門電影
+export async function getPopularMovies() {
+    const URL = `/movie/popular?api_key=${process.env.VUE_APP_API_KEY}&page=1`
+    return TMDBRequest.get(URL)
+}
