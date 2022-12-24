@@ -44,11 +44,12 @@
                                     <button
                                         type="button"
                                         class="btn btn-primary more_btn"
+                                        :class="{'disabled': !item.overview}"
                                         data-bs-toggle="modal"
                                         data-bs-target="#moviesModal"
                                         @click="openDetail(item)"
                                     >
-                                        詳細資訊
+                                        {{ item.overview ? '詳細資訊' : '無資料內容'}}
                                     </button>
                                 </div>
                             </div>
@@ -174,11 +175,17 @@ export default {
 
             getMovieImages(data).then((res) => {
                 const result = res.data.backdrops
-                console.log('result ===>', result)
-                result.forEach((path) => {
-                    path.file_path ? imgPath.push('https://image.tmdb.org/t/p/original' + path.file_path) : imgPath.push(this.emptyPic2)
-                });
-                sliceArr = imgPath.slice(0,2)
+                if(result.length) {
+                    result.forEach((path) => {
+                        imgPath.push('https://image.tmdb.org/t/p/original' + path.file_path)
+                    });
+                    sliceArr = imgPath.slice(0,2)
+                } else {
+                    for(let i = 0; i < 2; i ++){
+                        imgPath.push(this.emptyPic2)
+                    }
+                    sliceArr = imgPath
+                }
             })
 
             myModal.addEventListener('shown.bs.modal', function () {
