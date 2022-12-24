@@ -194,7 +194,7 @@ export default {
     background: rgb(16, 92, 163);
 }
 .header_bar {
-    height: 60px;
+    height: 10px;
 }
 .footer_bar {
     height: 120px;
