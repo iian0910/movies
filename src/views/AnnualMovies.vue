@@ -56,8 +56,8 @@
                     </div>
                     <PaginationSelector
                         class="my-5"
-                        :totalPages="this.moviesData.total_results"
-                        :currentPage="currentPage"
+                        :totalPages="moviesData.total_results"
+                        :isResetPagination="isResetPagination"
                         @change="changePage"
                         @jumpToPage="changePage"
                         @goPre="changePage"
@@ -97,10 +97,10 @@ export default {
                 year: '',
                 sortBy: ''
             },
-            currentPage: 0,
             emptyPic1: noMoviePic1,
             emptyPic2: noMoviePic2,
-            isLoading: false
+            isLoading: false,
+            isResetPagination: false,
         }
     },
     mounted(){
@@ -117,22 +117,23 @@ export default {
             })
         },
         searchList (filterItem) {
-            this.search.year = filterItem.year
-            this.search.sortBy = filterItem.sort
-            this.search.page = filterItem.page
-            
             const data = {
                 year: filterItem.year,
-                page: filterItem.page,
-                sort: filterItem.sort
+                sort: filterItem.sort,
+                page: 1
             }
-            this.currentPage = data.page
+
+            this.search.year = data.year
+            this.search.sortBy = data.sort
+            this.search.page = data.page
             this.isLoading = true
+            this.isResetPagination = true
+            
             filterTMDBList(data).then((res) => {
                 this.moviesList = res.data.results
                 this.isLoading = false
+                this.isResetPagination = false
             })
-            
         },
         changePage (page) {
             const data = {
@@ -148,10 +149,14 @@ export default {
         },
         cleanFilter (data) {
             this.isLoading = true
-            this.currentPage = data.page
-            changeTMDBList(data).then((res) => {
+            this.isResetPagination = true
+            this.search.year = data.year;
+            this.search.sortBy = data.sort;
+            getTMDBList().then((res) => {
+                this.moviesData = res.data
                 this.moviesList = res.data.results
                 this.isLoading = false
+                this.isResetPagination = false
             })
         },
         openDetail (detail) {

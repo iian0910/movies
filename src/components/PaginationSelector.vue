@@ -18,9 +18,9 @@ export default {
             default: 0,
             type: Number
         },
-        currentPage: {
-            default: 1,
-            type: Number
+        isResetPagination: {
+            default: false,
+            type: Boolean
         }
     },
     data () {
@@ -40,17 +40,18 @@ export default {
         }
     },
     watch: {
+        'current' (val) { // 监听当前页current改变，向父组件传递参数当前页
+            this.$emit('change', val)
+        },
         totalPages (val) { // 监听数据总数total的改变在计算页码列表getPagesLength()
-            console.log('totalPages ====>', val)
             if (val) {
                 this.getPagesLength()
             }
         },
-        currentPage () {
-            this.current = this.currentPage
-        },
-        current (val) { // 监听当前页current改变，向父组件传递参数当前页
-            this.$emit('change', val)
+        isResetPagination (isReset) {
+            if (isReset) {
+                this.current = 1
+            }
         }
     },
     created () { // 初始化计算页码列表getPagesLength()

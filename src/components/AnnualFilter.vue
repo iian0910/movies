@@ -55,20 +55,17 @@ export default {
         searchList() {
             const data = {
                 year: this.search.year ? this.search.year : new Date().getFullYear(),
-                page: 1,
                 sort: this.search.sortBy ? this.search.sortBy : ''
             }
             this.$emit('searchList', data)
         },
         cleanFilter() {
-            this.search.year = ''
-            this.search.sortBy = ''
             const data = {
-                year: new Date().getFullYear(),
-                page: 1,
-                sort: this.search.sortBy
+                year: '',
+                sort: ''
             }
-            console.log('cleanFilter ===>', data)
+            this.search.year = data.year
+            this.search.sortBy = data.sort
             this.$emit('cleanFilter', data)
         }
     }
