@@ -50,7 +50,7 @@
                         @cleanFilter="cleanFilter"
                     />
                 </div>
-                <div class="col-md-3 mb-5 mb-md-0" v-if="!isMobileSize">
+                <div class="col-md-3 mb-5 mb-md-0" v-else>
                     <div class="accordion" id="annualMoviesFilter">
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingOne">
@@ -70,7 +70,7 @@
                     </div>
                 </div>
                 <div class="col-md-9 col-12">
-                    <h3 class="mb-3">年度影片 {{isMobile}}</h3>
+                    <h3 class="mb-3">年度影片</h3>
                     <div class="row">
                         <div class="col-md-3 col-12 mb-3" v-for="(item, index) in moviesList" :key="index">
                             <div class="card h-100">
@@ -120,6 +120,7 @@ import MoviesModal from '@/components/MoviesModal.vue';
 import AnnualFilter from '@/components/AnnualFilter.vue';
 import noMoviePic1 from '@/assets/image/no_movie_pic_1.jpg';
 import noMoviePic2 from '@/assets/image/no_movie_pic_2.jpg';
+import { mapGetters } from 'vuex';
 
 export default {
     components: {
@@ -141,25 +142,16 @@ export default {
             emptyPic1: noMoviePic1,
             emptyPic2: noMoviePic2,
             isLoading: false,
-            isResetPagination: false,
-            isMobileSize: false
+            isResetPagination: false
         }
     },
     mounted(){
         this.init()
-        window.addEventListener('resize', this.isMobile())
     },
     computed: {
-        
+        ...mapGetters(['isMobileSize'])
     },
     methods: {
-        isMobile(){
-            if(window.matchMedia("(max-width: 768px)").matches) {
-                this.isMobileSize = true
-            } else {
-                this.isMobileSize = false
-            }
-        },
         init () {
             this.isLoading = true
             getTMDBList().then((res) => {
