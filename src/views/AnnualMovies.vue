@@ -74,7 +74,10 @@
                     <div class="row">
                         <div class="col-md-3 col-12 mb-3" v-for="(item, index) in moviesList" :key="index">
                             <div class="card h-100">
-                                <img :src="[item.poster_path ? 'https://image.tmdb.org/t/p/w500' + item.poster_path : emptyPic1]" class="card-img-top" alt="demo_img">
+                                <div class="movie_img">
+                                    <div class="movie_vote_average">{{item.vote_average | vote}}</div>
+                                    <img :src="[item.poster_path ? 'https://image.tmdb.org/t/p/w500' + item.poster_path : emptyPic1]" class="card-img-top" alt="demo_img">
+                                </div>
                                 <div class="card-body">
                                     <div class="card-title">{{item.original_title}}</div>
                                 </div>
@@ -292,5 +295,28 @@ export default {
 .card-footer {
     background-color: transparent;
     border-top: 0;
+}
+.movie_img {
+    position: relative;
+}
+.movie_vote_average {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    background-color: rgb(18, 122, 148);
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 50px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    @media screen and (max-width: 768px) {
+        width: 80px;
+        height: 80px;
+        font-size: 26px;
+        line-height: 80px;
+    }
 }
 </style>

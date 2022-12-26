@@ -69,6 +69,15 @@ Vue.filter('language', function(code) {
   return language
 })
 
+Vue.filter('vote', function(data){
+  const getCount = String(data).indexOf('.') + 1
+  if ( getCount > 0 ) {
+    return data
+  } else {
+    return data + '.0'
+  }
+})
+
 new Vue({
   store,
   router,
