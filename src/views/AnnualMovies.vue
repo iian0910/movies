@@ -21,13 +21,12 @@
                         :class="index === 0 ? 'active' : ''"
                     >
                         <div :style="{
-                                backgroundImage: 'url(https://image.tmdb.org/t/p/original' + item.backdrop_path + ')',
+                                backgroundImage: isMobileSize ? 'url(https://image.tmdb.org/t/p/w500' + item.poster_path + ')' : 'url(https://image.tmdb.org/t/p/original' + item.backdrop_path + ')',
                                 backgroundSize: 'cover',
                                 backgroundPositon: 'center',
-                                paddingBottom: '800px'
+                                paddingBottom: isMobileSize ? '600px' : '800px'
                              }"
                             class="d-block w-100"></div>
-                        <!-- <img :src="'https://image.tmdb.org/t/p/original' + item.backdrop_path" class="d-block w-100" alt="..."> -->
                     </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -45,13 +44,13 @@
                 :Loading="isLoading"
             />
             <div class="row">
-                <div class="col-md-3 mb-5 mb-md-0 desktop-divice">
+                <div class="col-md-3 mb-5 mb-md-0" v-if="!isMobileSize">
                     <AnnualFilter
                         @searchList="searchList"
                         @cleanFilter="cleanFilter"
                     />
                 </div>
-                <div class="col-md-3 mb-5 mb-md-0 mobile-divice">
+                <div class="col-md-3 mb-5 mb-md-0" v-if="!isMobileSize">
                     <div class="accordion" id="annualMoviesFilter">
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingOne">
@@ -71,7 +70,7 @@
                     </div>
                 </div>
                 <div class="col-md-9 col-12">
-                    <h3 class="mb-3">年度影片</h3>
+                    <h3 class="mb-3">年度影片 {{isMobile}}</h3>
                     <div class="row">
                         <div class="col-md-3 col-12 mb-3" v-for="(item, index) in moviesList" :key="index">
                             <div class="card h-100">
@@ -143,13 +142,24 @@ export default {
             emptyPic2: noMoviePic2,
             isLoading: false,
             isResetPagination: false,
+            isMobileSize: false
         }
     },
     mounted(){
         this.init()
+        window.addEventListener('resize', this.isMobile())
     },
-    computed: {},
+    computed: {
+        
+    },
     methods: {
+        isMobile(){
+            if(window.matchMedia("(max-width: 768px)").matches) {
+                this.isMobileSize = true
+            } else {
+                this.isMobileSize = false
+            }
+        },
         init () {
             this.isLoading = true
             getTMDBList().then((res) => {
