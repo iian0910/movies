@@ -46,3 +46,9 @@ export async function getPopularMovies() {
     const URL = `/movie/popular?api_key=${process.env.VUE_APP_API_KEY}&page=1`
     return TMDBRequest.get(URL)
 }
+
+// 公司列表
+export async function getCompanyList(genreIDs) {
+    const URL = `/company/${genreIDs}?api_key=${process.env.VUE_APP_API_KEY}`
+    return TMDBRequest.get(URL)
+}
