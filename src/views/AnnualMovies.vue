@@ -116,7 +116,7 @@
 </template>
 
 <script>
-import { getTMDBList, filterTMDBList, changeTMDBList, getMovieImages, getPopularMovies, getCompanyList } from '@/assets/js/api';
+import { getTMDBList, filterTMDBList, changeTMDBList, getMovieImages, getPopularMovies } from '@/assets/js/api';
 import PaginationSelector from '@/components/PaginationSelector.vue';
 import LoadingActive from '@/components/LoadingActive.vue';
 import MoviesModal from '@/components/MoviesModal.vue';
@@ -217,7 +217,7 @@ export default {
             let myModal = document.getElementById('moviesModal')
             let imgPath = []
             let sliceArr = []
-            let companyList = []
+            // let companyList = []
             const data = {
                 id: detail.id
             }
@@ -238,11 +238,11 @@ export default {
                 }
             })
 
-            detail.genre_ids.forEach(item => {
-                getCompanyList(item).then(res => {
-                    companyList.push(res.data.logo_path)
-                })
-            })
+            // detail.genre_ids.forEach(item => {
+            //     getCompanyList(item).then(res => {
+            //         companyList.push(res.data.logo_path)
+            //     })
+            // })
 
             myModal.addEventListener('shown.bs.modal', function () {
                 document.getElementById('movie_title').textContent = detail.original_title
@@ -252,16 +252,16 @@ export default {
                     document.getElementById(`movies_poster_${index}`).setAttribute('src', item)
                     document.getElementById(`movies_poster_${index}`).setAttribute('alt', detail.original_title)
                 })
-                companyList.forEach((item, index) => {
-                    if (item[index]) {
-                        document.querySelector('.genre .row').innerHTML += `<div class="col-4"><img class="img-fluid" src="https://image.tmdb.org/t/p/original${item}" alt=""/></div>`
-                    }
-                })
+                // companyList.forEach((item, index) => {
+                //     if (item[index]) {
+                //         document.querySelector('.genre .row').innerHTML += `<div class="col-4"><img class="img-fluid" src="https://image.tmdb.org/t/p/original${item}" alt=""/></div>`
+                //     }
+                // })
             })
 
-            myModal.addEventListener('hidden.bs.modal', function () {
-                document.querySelector('.genre .row').innerHTML = ''
-            })
+            // myModal.addEventListener('hidden.bs.modal', function () {
+            //     document.querySelector('.genre .row').innerHTML = ''
+            // })
         }
     }
 }

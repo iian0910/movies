@@ -25,9 +25,9 @@
                     </div>
                     <div id="movies_vote_average"></div>
                     <div id="movies_desc" class="my-3"></div>
-                    <div class="genre">
+                    <!-- <div class="genre">
                         <div class="row"></div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
